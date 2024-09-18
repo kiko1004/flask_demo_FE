@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+    {% block content %}
+<section style="margin-top: 5em;" class="user-portal-section section-padding" id="user_portal_section">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-12 text-center">
+        <h2 class="mb-4">User Portal</h2>
+      </div>
+
+      <div class="col-lg-6 col-md-8 col-12 mx-auto">
+        <div class="custom-block bg-white shadow-lg p-4">
+          <h3 class="text-center">Hi!</h3>
+          <p class="text-center mt-3">Welcome to your user portal.</p>
+          {% if logged_in %}
+          <p class="text-center">Hello {{ user }}</p>
+          <a href="/logout">Logout</a>
+          {% else %}
+          <p class="text-center">Sorry, you must login to use this page!</p>
+          {% endif %}
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+{% endblock %}

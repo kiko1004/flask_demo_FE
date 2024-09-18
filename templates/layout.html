@@ -36,7 +36,7 @@ https://templatemo.com/tm-590-topic-listing
 
             <nav class="navbar navbar-expand-lg">
                 <div class="container">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="/">
                         <i class="bi-back"></i>
                         <span>Topic</span>
                     </a>
@@ -83,7 +83,11 @@ https://templatemo.com/tm-590-topic-listing
                         </ul>
 
                         <div class="d-none d-lg-block">
-                            <a href="#top" class="navbar-icon bi-person smoothscroll"></a>
+                        {% if logged_in %}
+                            <a href="/userportal" class="navbar-icon bi-person smoothscroll"></a>
+                        {% else %}
+                            <a href="/login" class="navbar-icon bi-person smoothscroll"></a>
+                        {% endif %}
                         </div>
                     </div>
                 </div>
