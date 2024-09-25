@@ -61,24 +61,44 @@ def login():
 
 
 @app.route("/userportal")
-def userportal():
-    # TODO: Remove lines
-    headers = {
-        'Authorization': f'Bearer {request.cookies.get("token")}'
-    }
+@logged_in
+def userportal(**kwargs):
+    return render_template("userportal.html", **kwargs)
 
-    response = requests.request("POST", HOST + "/get_user_info", headers=headers)
-    if response.status_code == 200:
-        username = response.json()['username']
-        return render_template("userportal.html", logged_in=True, user=username)
-
-    return render_template("userportal.html", logged_in=False)
 
 @app.route("/logout")
 def logout():
     resp = make_response(redirect("/userportal"))
     resp.set_cookie('token', '', expires=0)
     return resp
+
+
+@app.route("/register", methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        username = request.values.get('username')
+        password = request.values.get('password')
+        confirm_password = request.values.get('confirm_password')
+        if password != confirm_password:
+            return render_template("register.html", message="Passwords not matching")
+        payload = json.dumps({
+            "username": username,
+            "password": password
+        })
+        headers = {
+            'Content-Type': 'application/json'
+        }
+
+        response = requests.request("POST", HOST + "/register", headers=headers, data=payload)
+
+        if response.status_code == 200:
+            token = response.json()['token']
+            resp = make_response(redirect("/userportal"))
+            resp.set_cookie('token', token)
+            return resp
+        return render_template("register.html", message=response.json()['message'])
+    return render_template("register.html")
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5888)

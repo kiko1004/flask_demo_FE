@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+    {% block content %}
+<section style="margin-top: 5em;" class="register-section section-padding" id="register_section">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-12 text-center">
+        <h2 class="mb-4">Register</h2>
+      </div>
+
+      <div class="col-lg-6 col-md-8 col-12 mx-auto">
+        <div class="custom-block bg-white shadow-lg p-4">
+          <form action="/register" method="POST">
+            <div class="mb-3">
+              <label for="username_input" class="form-label">Username</label>
+              <input type="text" class="form-control" id="username_input" name="username" placeholder="Enter your username">
+            </div>
+            <div class="mb-3">
+              <label for="password_input" class="form-label">Password</label>
+              <input type="password" class="form-control" id="password_input" name="password" placeholder="Enter your password">
+            </div>
+            <div class="mb-3">
+              <label for="confirm_password_input" class="form-label">Confirm Password</label>
+              <input type="password" class="form-control" id="confirm_password_input" name="confirm_password" placeholder="Confirm your password">
+            </div>
+            <button type="submit" class="btn custom-btn mt-3">Register</button>
+          </form>
+          <p style="text-align: center; color: red;">{{ message }}</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+    {% endblock %}
